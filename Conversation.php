@@ -14,7 +14,7 @@ class Conversation{
      * @param $date
      * @param $conversation
      */
-    public function __construct($id=null, $customer_id, $date, $conversation){
+    public function __construct($id=null, $customer_id, $date=null, $conversation){
         $this->id = $id;
         $this->customer_id = $customer_id;
         $this->date = $date;
@@ -46,9 +46,19 @@ class Conversation{
     public static function getConversation($customer_id){
         $pdo=DB::getPDO();
         $stm=$pdo->prepare("SELECT * FROM contact_information WHERE customer_id=?");
-        $stm->execute(['$customer_id']);
+        $stm->execute([$customer_id]);
         $c=$stm->fetch(PDO::FETCH_ASSOC);
         $conversation=new Conversation($c['id'],$c['customer_id'],$c['date'],$c['conversation']);
+        return $conversation;
+    }
+    public static function getConversations(){
+        $pdo=DB::getPDO();
+        $stm=$pdo->prepare("SELECT * FROM contact_information");
+        $stm->execute();
+        $conversation=[];
+        foreach ($stm->fetchAll(PDO::FETCH_ASSOC) as $c){
+            $conversation[]=new Conversation($c['customer_id'],$c['date'],$c['conversation'],$c['id']);
+        }
         return $conversation;
     }
 

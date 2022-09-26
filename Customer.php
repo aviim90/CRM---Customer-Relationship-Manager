@@ -45,6 +45,14 @@ class Customer{
         }
         return $customers;
     }
+    public static function getCustomer($id){
+        $pdo=DB::getPDO();
+        $stm=$pdo->prepare("SELECT * FROM customers WHERE id=?");
+        $stm->execute([$id]);
+        $c=$stm->fetch(PDO::FETCH_ASSOC);
+        $customer=new Customer($c['name'],$c['surname'],$c['phone'],$c['email'],$c['address'],$c['position'],$c['company_id'], $id);
+        return $customer;
+    }
 
     public function getCompany(){
         if($this->company==null){
@@ -75,6 +83,13 @@ class Customer{
 //            $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id]);
 //        }
 //    }
+    public function getConversations($conversation)
+    {
+        if ($this->conversation = $conversation) {
+            $this->conversation = Conversation::getConversation($this->conversation);
+        }
+        return $this->conversation;
+    }
 
     public function delete(){
         $pdo = DB::getPDO();
