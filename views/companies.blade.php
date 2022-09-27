@@ -41,7 +41,7 @@
                             <td>{{$company->phone}}</td>
                             <td>{{$company->email}}</td>
                             <td><a class="btn btn-success" href="updateCompany.php">Update</a></td>
-                            <td><a class="btn btn-warning">Delete</a></td>
+                            <td><a class="btn btn-danger" href="?deleteCompany_id={{$company->id}}">Delete</a></td>
                         </tr>
                         </tbody>
                         @endforeach

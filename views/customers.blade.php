@@ -47,7 +47,7 @@
                                 <td>{{$customer->getConversations($customer->id)->date}}</td>
                                 <td>{{$customer->getConversations($customer->id)->conversation}}</td>
                                 <td><a class="btn btn-success" href="updateCustomer.php">Update</a></td>
-                                <td><a class="btn btn-warning">Delete</a></td>
+                                <td><a class="btn btn-danger" href="?deleteCustomer_id={{$customer->id}}">Delete</a></td>
 
                             </tr>
                             </tbody>

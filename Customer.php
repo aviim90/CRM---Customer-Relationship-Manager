@@ -91,7 +91,7 @@ class Customer{
         return $this->conversation;
     }
 
-    public function delete(){
+    public function deleteCustomer(){
         $pdo = DB::getPDO();
         $stm = $pdo->prepare("DELETE FROM customers WHERE id=?");
         $stm->execute([$this->id]);
