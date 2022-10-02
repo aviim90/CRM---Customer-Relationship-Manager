@@ -15,7 +15,9 @@
             <div class="card mt-5">
                 <div class="card-header text-center">
                     <p>Companies</p>
+                    @if($user->canEdit())
                     <a class="btn btn-warning" href="addNewCompany.php">Add Company</a>
+                    @endif
                 </div>
                 <div class="card-body text-center">
                     <table class="table">
@@ -27,8 +29,10 @@
                             <th>Company Name</th>
                             <th>Phone</th>
                             <th>Email</th>
+                            @if($user->canEdit())
                             <th></th>
                             <th></th>
+                            @endif
                         </tr>
                         </thead>
                         @foreach($companies as $company)
@@ -40,8 +44,10 @@
                             <td>{{$company->company_name}}</td>
                             <td>{{$company->phone}}</td>
                             <td>{{$company->email}}</td>
-                            <td><a class="btn btn-success" href="updateCompany.php">Update</a></td>
+                            @if ($user->canEdit())
+                            <td><a class="btn btn-success" href="editCompany.php?id={{$company->id}}">Update</a></td>
                             <td><a class="btn btn-danger" href="?deleteCompany_id={{$company->id}}">Delete</a></td>
+                            @endif
                         </tr>
                         </tbody>
                         @endforeach

@@ -64,9 +64,16 @@ class Conversation{
 
     public function addConversation(){
         $pdo=DB::getPDO();
-        $stm=$pdo->prepare("INSERT INTO contact_information (customer_id, conversation) VALUES (?,?)");
-        $stm->execute([$this->customer_id, $_POST['conversation']]);
+        $stm=$pdo->prepare("INSERT INTO contact_information (customer_id, date, conversation) VALUES (?,?,?)");
+        $stm->execute([$this->customer_id, $_POST['date'], $_POST['conversation']]);
     }
+
+    public function editConversation(){
+        $pdo = DB::getPDO();
+        $stm = $pdo->prepare("UPDATE contact_information SET customer_id=?, date=?, conversation=? WHERE id=?");
+        $stm->execute([$this->customer_id, $this->date, $this->conversation, $this->id]);
+    }
+
 
     public function delete()
     {

@@ -8,9 +8,9 @@ include_once "lib/BladeOne.php";
 
 use eftec\bladeone\BladeOne;
 
-$addCompany=Company::getCompanies();
+$addNewCompany=Company::getCompanies();
 $bladeNewComp=new BladeOne();
-echo $bladeNewComp->run("addNewCompany", ["addNewCompany"=>$addCompany]);
+echo $bladeNewComp->run("addNewCompany", ["addNewCompany"=>$addNewCompany]);
 
 if(isset($_POST['action']) && $_POST['action']=='insert'){
     $addNewCompany = new Company(
@@ -21,7 +21,7 @@ if(isset($_POST['action']) && $_POST['action']=='insert'){
         $_POST['phone'],
         $_POST['email']);
 
-    $addCompany->saveCompany();
+    $addNewCompany->createCompany();
     header("location:index.php");
     die();
 }

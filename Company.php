@@ -36,6 +36,12 @@ class Company
         $this->id = $id;
     }
 
+    public function createCompany(){
+        $pdo=DB::getPDO();
+        $stm=$pdo->prepare("INSERT INTO companys (name, address, vat_code, company_name, phone, email) VALUES (?,?,?,?,?,?)");
+        $stm->execute([ $this->name, $this->address, $this->vat_code, $this->company_name, $this->phone, $this->email ]);
+    }
+
     public function saveCompany(){
         $pdo=DB::getPDO();
         if ($this->id==null){
@@ -45,8 +51,8 @@ class Company
         }
         else{
             $pdo = DB::getPDO();
-            $stm = $pdo->prepare("UPDATE companys SET name=?, address=?, vat_code=?, company_name=?, phone=?, email=?");
-            $stm->execute([$this->name, $this->address, $this->vat_code, $this->company_name, $this->phone, $this->email]);
+            $stm = $pdo->prepare("UPDATE companys SET name=?, address=?, vat_code=?, company_name=?, phone=?, email=? WHERE id=?");
+            $stm->execute([$this->name, $this->address, $this->vat_code, $this->company_name, $this->phone, $this->email, $this->id]);
         }
     }
 
@@ -62,7 +68,7 @@ class Company
      */
     public function getCustomers(){
         if($this->customers==null){
-            $this->customers=Customers::getCustomers($this->id);
+            $this->customers=Customer::getCustomers();
         }
         return $this->customers;
     }
@@ -87,6 +93,8 @@ class Company
         }
         return $companys;
     }
+
+
 
 
 }

@@ -69,20 +69,22 @@ class Customer{
         return $this;
     }
 
-//    public function save(){
-//        $pdo=DB::getPDO();
-//        if($this->id=null){
-//            $stm = $pdo->prepare("INSERT INTO customers(name, surname, phone, email, address, position, company_id) VALUES (?,?,?,?,?,?)");
-//            $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id]);
-//            $this->id=$pdo->lastInsertId();
-//
-//        }
-//        else{
-//            $pdo = DB::getPDO();
-//            $stm = $pdo->prepare("UPDATE customers SET name=?, surname=?, phone=?, email=?, address=?, position=?, company_id=?");
-//            $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id]);
-//        }
-//    }
+
+
+    public function saveCustomer(){
+        $pdo=DB::getPDO();
+        if($this->id=null){
+            $stm = $pdo->prepare("INSERT INTO customers (name, surname, phone, email, address, position, company_id) VALUES (?,?,?,?,?,?,?)");
+            $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id]);
+            $this->id=$pdo->lastInsertId();
+
+        }
+        else{
+            $pdo = DB::getPDO();
+            $stm = $pdo->prepare("UPDATE customers SET name=?, surname=?, phone=?, email=?, address=?, position=?, company_id=? WHERE id=?");
+            $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id, $this->id]);
+        }
+    }
     public function getConversations($conversation)
     {
         if ($this->conversation = $conversation) {
@@ -95,6 +97,14 @@ class Customer{
         $pdo = DB::getPDO();
         $stm = $pdo->prepare("DELETE FROM customers WHERE id=?");
         $stm->execute([$this->id]);
+    }
+
+    public function updateCustomer()
+    {
+        $pdo = DB::getPDO();
+        $stm = $pdo->prepare("UPDATE customers SET name=?, surname=?, phone=?, email=?, address=?, position=?, company_id=? WHERE id=?");
+        $stm->execute([$this->name, $this->surname, $this->phone, $this->email, $this->address, $this->position, $this->company_id, $this->id]);
+
     }
 
 
